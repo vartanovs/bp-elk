@@ -39,6 +39,18 @@ services:
     ports:
       - 5601:5601
 
+  nginx:
+    container_name: elk-boilerplate-nginx
+    depends_on: 
+      - logstash
+    image: nginx:1.16.0
+    logging:
+      driver: gelf
+      options:
+        gelf-address: udp://localhost:12201
+    ports:
+      - 8080:80
+
 networks: 
   logging-network:
     driver: bridge
